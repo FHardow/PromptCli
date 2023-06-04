@@ -37,11 +37,12 @@ def code_generation(
 def ask_question(
     question: str = typer.Argument(),
     model: str = typer.Argument("gpt-3.5-turbo", help="Choose a model to use for chat"),
+    sources: bool = typer.Option(False, "--sources", help="With source prompt."),
 ):
     """
     Chat with an AI using OpenAI's GPT model.
     """
-    result = gateway.ask_question(question, model)
+    result = gateway.ask_question(question=question, model=model, sources=sources)
     print(result)
 
 

@@ -39,19 +39,27 @@ class OpenAIGateway:
 
         return message
 
-    def ask_question(self, question: str, model: str):
+    def ask_question(self, question: str, model: str, sources: bool):
+        messages = []
+        if sources:
+            system_prompt = {
+                "role": "system",
+                "content": (
+                    "Answer the following question and print sources for websites of the information."
+                    "The sources should be in the format of a list of links."
+                ),
+            }
+            messages.append(system_prompt)
+
+        messages.append(
+            {
+                "role": "user",
+                "content": f"Q: {question} A:",
+            },
+        )
         response = openai.ChatCompletion.create(
             model=model,
-            messages=[
-                {
-                    "role": "system",
-                    "content": ("Answer the following question and print sources for websites of the information."),
-                },
-                {
-                    "role": "user",
-                    "content": f"Q: {question} A:",
-                },
-            ],
+            messages=messages,
         )
 
         message = response.choices[0].message.content
