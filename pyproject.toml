@@ -1,0 +1,107 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "prompt-cli"
+description = ''
+readme = "README.md"
+requires-python = ">=3.7"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "Florian Hardow", email = "florianhardow@yahoo.de" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = ["openai==0.27.6", "typer==0.9.0", "ruff==0.0.270", "black==23.3.0", "python-dotenv==1.0.0"]
+dynamic = ["version"]
+
+[project.urls]
+Documentation = "https://github.com/unknown/prompt-cli#readme"
+Issues = "https://github.com/unknown/prompt-cli/issues"
+Source = "https://github.com/unknown/prompt-cli"
+
+[tool.hatch.version]
+path = "prompt_cli/__about__.py"
+
+[tool.hatch.envs.default]
+dependencies = [
+  "pytest",
+  "pytest-cov",
+]
+[tool.hatch.envs.default.scripts]
+cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=prompt_cli --cov=tests"
+no-cov = "cov --no-cov"
+lint = "black . && ruff . --fix"
+
+[[tool.hatch.envs.test.matrix]]
+python = ["37", "38", "39", "310", "311"]
+
+[tool.coverage.run]
+branch = true
+parallel = true
+omit = [
+  "prompt_cli/__about__.py",
+]
+
+[tool.ruff]
+line-length = 120
+extend-select = [ # Full rule overview hear
+  "E", # Pycodestyle
+  "F", # Pycodestyle
+  "S", # looks for common security issues using Bandit
+  "A", # don't shadow built-ins
+  "PTH", # enforces-pathlib usage
+  "RUF", # Ruff-specific errors
+  "DTZ", # flags datetime.timezone.now() usage
+  "I", # replaces isort
+  "B", # Bugbear
+  "C90", # Code complexity
+  "PL", # Pylint
+]
+ignore = [
+  "A003", # it's okay class attributes shadow built-ins
+  "S104", # It's okay to bind FastAPI to all interfaces
+  "B008", # do not perform function calls in argument defaults (FastAPI, Pydantic rely on this)
+  "B019", # We know about the risks of `functools.lru_cache` and `functools.cache`
+  "PLR0913", # Too many arguments to function call
+  "PLR0915", # Too many statements
+  "PLC1901", # Nothing wrong with explicitly checking empty strings
+]
+[tool.ruff.per-file-ignores]
+"tests/**" = [
+  "S", # No need for security checks in tests
+  "PTH", # tests can use pathlib
+  "B", # Doesn't make sense for tests
+  "PL", # Doesn't make sense for tests
+]
+
+
+[tool.ruff.isort]
+combine-as-imports = true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
