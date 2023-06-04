@@ -2,9 +2,11 @@ from pathlib import Path
 
 import typer
 
-from prompt_cli.gateway import chat_gpt
+from prompt_cli.config import OPENAI_API_KEY
+from prompt_cli.gateway import OpenAIGateway
 
 app = typer.Typer()
+gateway = OpenAIGateway(key=OPENAI_API_KEY)
 
 system_prompt = ""
 
@@ -22,7 +24,29 @@ def chat(
     Chat with an AI using OpenAI's GPT model.
     """
     file_content = file.read()
-    result = chat_gpt(instruction, file_content, model)
+    result = gateway.code_generation(instruction, file_content, model)
+    print(result)
+
+    if overwrite:
+        with Path(file.name).open("w") as file:
+            file.write(result)
+            file.flush()
+
+
+@app.command()
+def ask_question(
+    instruction: str = typer.Argument(),
+    file: typer.FileText = typer.Argument(),
+    model: str = typer.Argument("gpt-3.5-turbo", help="Choose a model to use for chat"),
+    overwrite: bool = typer.Option(
+        False, "--overwrite", help="overwrite the file with the new content"
+    ),
+):
+    """
+    Chat with an AI using OpenAI's GPT model.
+    """
+    file_content = file.read()
+    result = gateway.code_generation(instruction, file_content, model)
     print(result)
 
     if overwrite:
