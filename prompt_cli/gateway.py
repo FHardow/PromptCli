@@ -38,3 +38,22 @@ class OpenAIGateway:
         message = response.choices[0].message.content
 
         return message
+
+    def ask_question(self, question: str, model: str):
+        response = openai.ChatCompletion.create(
+            model=model,
+            messages=[
+                {
+                    "role": "system",
+                    "content": ("Answer the following question and print sources for websites of the information."),
+                },
+                {
+                    "role": "user",
+                    "content": f"Q: {question} A:",
+                },
+            ],
+        )
+
+        message = response.choices[0].message.content
+
+        return message
