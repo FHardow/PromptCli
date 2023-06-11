@@ -13,7 +13,7 @@ system_prompt = ""
 
 
 @app.command()
-def code_generation(
+def generate(
     instruction: str = typer.Argument(),
     file: typer.FileText = typer.Argument(),
     model: str = typer.Argument("gpt-3.5-turbo", help="Choose a model to use for chat"),
@@ -35,7 +35,7 @@ def code_generation(
 
 
 @app.command()
-def ask_question(
+def ask(
     question: str = typer.Argument(),
     model: str = typer.Argument("gpt-3.5-turbo", help="Choose a model to use for chat"),
     sources: bool = typer.Option(False, "--sources", help="With source prompt."),
@@ -47,5 +47,9 @@ def ask_question(
     print(result)
 
 
+def run_app():
+   app()
+
+
 if __name__ == "__main__":
-    app()
+   run_app()

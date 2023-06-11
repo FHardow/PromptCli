@@ -27,9 +27,8 @@ dynamic = ["version"]
 #Issues = "https://github.com/unknown/prompt-cli/issues"
 #Source = "https://github.com/unknown/prompt-cli"
 
-[project.console_scripts]
-name = "p"
-callable = "prompt_cli.cli:main"
+[project.scripts]
+prompt = "prompt_cli.cli:app"
 
 [tool.hatch.version]
 path = "prompt_cli/__about__.py"

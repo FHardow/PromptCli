@@ -1,5 +1,3 @@
-from json import loads
-
 import openai
 
 from prompt_cli.config.prompts import SYSTEM_PROMPT_DEVELOPER_PROMPT
