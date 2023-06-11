@@ -22,10 +22,13 @@ classifiers = [
 dependencies = ["openai==0.27.6", "typer==0.9.0", "ruff==0.0.270", "black==23.3.0", "python-dotenv==1.0.0"]
 dynamic = ["version"]
 
-[project.urls]
-Documentation = "https://github.com/unknown/prompt-cli#readme"
-Issues = "https://github.com/unknown/prompt-cli/issues"
-Source = "https://github.com/unknown/prompt-cli"
+#[project.urls]
+#Documentation = "https://github.com/unknown/prompt-cli#readme"
+#Issues = "https://github.com/unknown/prompt-cli/issues"
+#Source = "https://github.com/unknown/prompt-cli"
+
+[project.scripts]
+prompt = "prompt-cli.cli:run_packaged"
 
 [tool.hatch.version]
 path = "prompt_cli/__about__.py"

@@ -2,7 +2,7 @@ from pathlib import Path
 
 import typer
 
-from prompt_cli.config import OPENAI_API_KEY
+from prompt_cli.config.config import OPENAI_API_KEY
 from prompt_cli.gateway import OpenAIGateway
 
 app = typer.Typer()

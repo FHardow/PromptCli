@@ -1,4 +1,8 @@
+from json import loads
+
 import openai
+
+from prompt_cli.config.prompts import SYSTEM_PROMPT_DEVELOPER_PROMPT
 
 
 class OpenAIGateway:
@@ -13,21 +17,7 @@ class OpenAIGateway:
         response = openai.ChatCompletion.create(
             model=model,
             messages=[
-                {
-                    "role": "system",
-                    "content": (
-                        "I will provide some specific instruction to a code snippet and you will change the code so"
-                        " that the instructions are meet."
-                        "My instructions are placed in quotes and follow the string `instructions:` and the code is"
-                        " placed in quotes and follow the string `code:`. "
-                        "You are a system that only generates code. Do not describe or contextualize the code. Do not "
-                        "apply any formatting or syntax highlighting. Do not wrap the code in a code block."
-                        "From now, your response must be only the code block, no talking, no comments."
-                        # f"Do not describe or contextualize the code.Do not apply any formatting or syntax
-                        # highlighting.Do not wrap the code in a code block."
-                        # f"Only return code! Do not say anything else, only return the changed code. "
-                    ),
-                },
+                {"role": "system", "content": SYSTEM_PROMPT_DEVELOPER_PROMPT},
                 {
                     "role": "user",
                     "content": f"`instructions:` {instruction} `code:` {user_input}",
@@ -36,8 +26,7 @@ class OpenAIGateway:
         )
 
         message = response.choices[0].message.content
-
-        return message
+        return loads(message).get("code")
 
     def ask_question(self, question: str, model: str, sources: bool):
         messages = []
