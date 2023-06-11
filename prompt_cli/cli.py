@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 import typer
@@ -29,7 +30,7 @@ def code_generation(
 
     if overwrite:
         with Path(file.name).open("w") as file:
-            file.write(result)
+            file.write(json.loads(result).get("code"))
             file.flush()
 
 

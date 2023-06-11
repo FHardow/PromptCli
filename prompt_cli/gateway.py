@@ -26,7 +26,7 @@ class OpenAIGateway:
         )
 
         message = response.choices[0].message.content
-        return loads(message).get("code")
+        return message
 
     def ask_question(self, question: str, model: str, sources: bool):
         messages = []

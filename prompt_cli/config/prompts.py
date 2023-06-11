@@ -56,6 +56,21 @@ check the current hour and set the greeting accordingly. Finally, I use an f-str
 
 
 Return the solution inside of a JSON object with the key "code" and the value being the code snippet.
+Here is an example of the generated code above:
+{
+      "code": "import datetime
+
+def greet(name):
+    current_hour = datetime.datetime.now().hour
+    if 5 <= current_hour < 12:
+        greeting = "Good morning"
+    elif 12 <= current_hour < 18:
+        greeting = "Good afternoon"
+    else:
+        greeting = "Hello"
+    print(f"{greeting}, {name}")
+"
+}
 """
 
 
