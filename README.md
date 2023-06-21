@@ -20,9 +20,7 @@ pip install dist/prompt_cli-0.0.1-py3-none-any.whl
 Make sure that you have your `OPEN_API_KEY` set in your environment variables.
 
 ## Usage
-
-![img.png](img.png)
-
+![img.png](docs%2Fimg.png)
 
 ## Generate code
 You can generate code through a prompt with the command
